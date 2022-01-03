@@ -3,8 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { genSalt, hash } from 'bcrypt';
 
+import mapQueryToFindOptions from 'src/utils/map-query-to-find-options';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { FindUserDto } from './dto/find-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
@@ -41,8 +43,17 @@ export class UsersService {
     return createdUser;
   }
 
-  async findAll() {
-    return await this.usersRepository.find();
+  async findAll(query: FindUserDto) {
+    const findOptions = mapQueryToFindOptions(query);
+
+    const [data, total] = await this.usersRepository.findAndCount(findOptions);
+
+    return {
+      $limit: findOptions.take,
+      $skip: findOptions.skip,
+      total,
+      data,
+    };
   }
 
   async findOne(id: number) {
