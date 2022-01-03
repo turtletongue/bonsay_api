@@ -62,7 +62,15 @@ export class UsersService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    return await this.usersRepository.update(id, updateUserDto);
+    const updatedUser = await this.usersRepository.save({
+      id,
+      ...updateUserDto,
+    });
+
+    delete updatedUser.password;
+    delete updatedUser.passwordSalt;
+
+    return updatedUser;
   }
 
   async remove(id: number) {
@@ -72,6 +80,8 @@ export class UsersService {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
 
-    return await this.usersRepository.delete(id);
+    await this.usersRepository.delete(id);
+
+    return existingUser;
   }
 }
