@@ -1,7 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { genSalt, hash } from 'bcrypt';
+import { compare, genSalt, hash } from 'bcrypt';
 
 import mapQueryToFindOptions from 'src/utils/map-query-to-find-options';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -15,16 +19,13 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  public async create(createUserDto: CreateUserDto) {
     const existingUser = await this.usersRepository.findOne({
       email: createUserDto.email,
     });
 
     if (existingUser) {
-      throw new HttpException(
-        'This email is already taken.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException('This email is already taken');
     }
 
     const salt = await genSalt();
@@ -34,16 +35,14 @@ export class UsersService {
     const createdUser = await this.usersRepository.save({
       ...createUserDto,
       password: hashedPassword,
-      passwordSalt: salt,
     });
 
     delete createdUser.password;
-    delete createdUser.passwordSalt;
 
     return createdUser;
   }
 
-  async findAll(query: FindUserDto) {
+  public async findAll(query: FindUserDto) {
     const findOptions = mapQueryToFindOptions(query);
 
     const [data, total] = await this.usersRepository.findAndCount(findOptions);
@@ -56,21 +55,21 @@ export class UsersService {
     };
   }
 
-  async findOne(id: number) {
+  public async findOne(id: number) {
     const user = await this.usersRepository.findOne(id);
 
     if (!user) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      throw new UnprocessableEntityException('User is not found');
     }
 
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  public async update(id: number, updateUserDto: UpdateUserDto) {
     const existingUser = await this.usersRepository.findOne(id);
 
     if (!existingUser) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+      throw new UnprocessableEntityException('User is not found');
     }
 
     const updatedUser = await this.usersRepository.save({
@@ -79,20 +78,31 @@ export class UsersService {
     });
 
     delete updatedUser.password;
-    delete updatedUser.passwordSalt;
 
     return updatedUser;
   }
 
-  async remove(id: number) {
-    const existingUser = await this.usersRepository.findOne(id);
-
-    if (!existingUser) {
-      throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-    }
+  public async remove(id: number) {
+    const existingUser = await this.findOne(id);
 
     await this.usersRepository.delete(id);
 
     return existingUser;
+  }
+
+  public async validateCredentials(
+    userId: number,
+    password: string,
+  ): Promise<boolean> {
+    const user = await this.usersRepository
+      .createQueryBuilder()
+      .select('User.id')
+      .addSelect('User.password')
+      .where({
+        id: userId,
+      })
+      .getOne();
+
+    return compare(password, user.password);
   }
 }

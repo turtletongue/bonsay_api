@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-import { IFieldQuery } from 'src/declarations';
+import { IFieldQuery, Role } from 'src/declarations';
 
 export class FindUserDto {
   @ApiProperty()
@@ -22,7 +22,7 @@ export class FindUserDto {
 
   @ApiProperty()
   @IsOptional()
-  role?: 'admin' | 'client' | IFieldQuery<'admin' | 'client'>;
+  role?: Role | IFieldQuery<Role>;
 
   @ApiProperty()
   @IsOptional()

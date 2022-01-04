@@ -25,9 +25,13 @@ export const mapQueryToFindOptions = ({
     whereEntries
       .filter(([, value]) => {
         try {
-          Object.values(value).forEach((operatorValue: string) =>
-            JSON.parse(operatorValue),
-          );
+          if (value.$in) {
+            JSON.parse(value.$in);
+          }
+
+          if (value.$nin) {
+            JSON.parse(value.$nin);
+          }
 
           return true;
         } catch {
@@ -35,6 +39,10 @@ export const mapQueryToFindOptions = ({
         }
       })
       .map(([key, value]) => {
+        if (typeof value !== 'object') {
+          return [key, value];
+        }
+
         if ('$eq' in value) {
           return [key, Equal(value.$eq)];
         }

@@ -5,7 +5,7 @@ export interface IFieldQuery<T> {
   $gt?: T;
   $gte?: T;
   $lte?: T;
-  $iLike: T;
+  $iLike?: T;
   $nin?: T[];
   $in?: T[];
 }
@@ -20,3 +20,12 @@ export interface IQuery {
 
   [key: string]: any | IFieldQuery<any>;
 }
+
+export interface RefreshTokenPayload {
+  jti: number;
+  sub: number;
+}
+
+export type Role = 'admin' | 'client';
+
+export type Owner = 'user' | 'client';
