@@ -37,7 +37,7 @@ export class AddressesService {
     const address = await this.addressesRepository.findOne(id);
 
     if (!address) {
-      throw new UnprocessableEntityException('User is not found');
+      throw new UnprocessableEntityException('Address is not found');
     }
 
     return address;
@@ -47,7 +47,7 @@ export class AddressesService {
     const address = await this.addressesRepository.findOne(id);
 
     if (!address) {
-      throw new UnprocessableEntityException('User is not found');
+      throw new UnprocessableEntityException('Address is not found');
     }
 
     const updatedAddress = await this.addressesRepository.save({

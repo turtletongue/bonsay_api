@@ -7,34 +7,28 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { Address } from 'src/addresses/entities/address.entity';
 import { Client } from 'src/clients/entities/client.entity';
-import { Order } from 'src/orders/entities/order.entity';
 
-@Entity({ name: 'addresses' })
-export class Address {
+@Entity({ name: 'orders' })
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  city: string;
+  phone: string;
+
+  @ManyToOne(() => Address, (address) => address.orders)
+  address: Address;
 
   @Column()
-  street: string;
+  addressId: number;
 
-  @Column()
-  house: string;
-
-  @Column()
-  postcode: string;
-
-  @ManyToOne(() => Client, (client) => client.addresses)
+  @ManyToOne(() => Client, (client) => client.orders)
   client: Client;
 
   @Column()
-  clientId?: number;
-
-  @ManyToOne(() => Order, (order) => order.addressId)
-  orders: Order[];
+  clientId: number;
 
   @CreateDateColumn()
   createdAt: Date;

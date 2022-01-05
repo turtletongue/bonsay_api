@@ -37,7 +37,7 @@ export class ClientsService {
     const client = await this.clientsRepository.findOne(id);
 
     if (!client) {
-      throw new UnprocessableEntityException('User is not found');
+      throw new UnprocessableEntityException('Client is not found');
     }
 
     return client;
@@ -47,7 +47,7 @@ export class ClientsService {
     const client = await this.clientsRepository.findOne(id);
 
     if (!client) {
-      throw new UnprocessableEntityException('User is not found');
+      throw new UnprocessableEntityException('Client is not found');
     }
 
     const updatedClient = await this.clientsRepository.save({
