@@ -41,6 +41,10 @@ export class FindProductDto {
 
   @ApiProperty()
   @IsOptional()
+  uploadId?: number;
+
+  @ApiProperty()
+  @IsOptional()
   createdAt?: Date | IFieldQuery<Date>;
 
   @ApiProperty()

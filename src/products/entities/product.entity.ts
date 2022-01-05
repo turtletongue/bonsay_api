@@ -10,6 +10,7 @@ import {
 
 import { Category } from 'src/categories/entities/category.entity';
 import { Purchase } from 'src/purchases/entities/purchase.entity';
+import { Upload } from 'src/uploads/entities/upload.entity';
 
 @Entity()
 export class Product {
@@ -42,6 +43,16 @@ export class Product {
     onUpdate: 'CASCADE',
   })
   purchases: Purchase[];
+
+  @ManyToOne(() => Upload, (upload) => upload.products, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+    nullable: true,
+  })
+  upload: Upload;
+
+  @Column({ nullable: true })
+  uploadId: number;
 
   @CreateDateColumn()
   createdAt: Date;

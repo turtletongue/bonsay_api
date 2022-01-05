@@ -1,5 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty()
@@ -25,4 +30,9 @@ export class CreateProductDto {
   @ApiProperty()
   @IsNotEmpty()
   categoryId: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsOptional()
+  uploadId: number;
 }

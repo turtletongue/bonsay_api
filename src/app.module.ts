@@ -11,6 +11,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { PurchasesModule } from './purchases/purchases.module';
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PurchasesModule } from './purchases/purchases.module';
     CategoriesModule,
     ProductsModule,
     PurchasesModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { IFieldQuery } from 'src/declarations';
 
-export class FindCategoryDto {
+export class FindUploadDto {
   @ApiProperty()
   @IsOptional()
   $limit?: number;
@@ -17,11 +17,23 @@ export class FindCategoryDto {
 
   @ApiProperty()
   @IsOptional()
-  name?: string | IFieldQuery<string>;
+  originalName?: string;
 
   @ApiProperty()
   @IsOptional()
-  uploadId: number;
+  fileName?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  path?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  mimetype?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  size?: string;
 
   @ApiProperty()
   @IsOptional()
