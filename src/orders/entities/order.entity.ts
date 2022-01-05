@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { Address } from 'src/addresses/entities/address.entity';
 import { Client } from 'src/clients/entities/client.entity';
+import { Payment } from 'src/payments/entities/payment.entity';
 
 @Entity({ name: 'orders' })
 export class Order {
@@ -29,6 +31,9 @@ export class Order {
 
   @Column()
   clientId: number;
+
+  @OneToMany(() => Payment, (payment) => payment.orderId)
+  payments: Payment[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -11,6 +11,7 @@ import {
 import { User } from 'src/users/entities/user.entity';
 import { Address } from 'src/addresses/entities/address.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { Payment } from 'src/payments/entities/payment.entity';
 
 @Entity({ name: 'clients' })
 export class Client {
@@ -28,6 +29,9 @@ export class Client {
 
   @OneToMany(() => Order, (order) => order.clientId)
   orders: Order[];
+
+  @OneToMany(() => Payment, (payment) => payment.clientId)
+  payments: Payment[];
 
   @CreateDateColumn()
   createdAt: Date;

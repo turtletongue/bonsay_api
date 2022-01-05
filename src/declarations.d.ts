@@ -29,3 +29,5 @@ export interface RefreshTokenPayload {
 export type Role = 'admin' | 'client';
 
 export type Owner = 'user' | 'client';
+
+export type Status = 'wait' | 'success' | 'fail';

@@ -7,6 +7,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { ClientsModule } from './clients/clients.module';
 import { OrdersModule } from './orders/orders.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { OrdersModule } from './orders/orders.module';
     AddressesModule,
     ClientsModule,
     OrdersModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],
