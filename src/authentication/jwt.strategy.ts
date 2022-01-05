@@ -5,6 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtExpiresIn } from 'src/utils/variables';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from '../users/users.service';
+import { ClientsService } from 'src/clients/clients.service';
 
 export interface AccessTokenPayload {
   sub: number;
@@ -12,7 +13,10 @@ export interface AccessTokenPayload {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  public constructor(private users: UsersService) {
+  public constructor(
+    private users: UsersService,
+    private clients: ClientsService,
+  ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -30,6 +34,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     if (!user) {
       return null;
+    }
+
+    if (user.role === 'client') {
+      const clients = await this.clients.findAll({ userId: user.id });
+
+      user.client = clients.data[0];
     }
 
     return user;

@@ -66,9 +66,9 @@ export class UsersService {
   }
 
   public async update(id: number, updateUserDto: UpdateUserDto) {
-    const existingUser = await this.usersRepository.findOne(id);
+    const user = await this.usersRepository.findOne(id);
 
-    if (!existingUser) {
+    if (!user) {
       throw new UnprocessableEntityException('User is not found');
     }
 
@@ -83,11 +83,11 @@ export class UsersService {
   }
 
   public async remove(id: number) {
-    const existingUser = await this.findOne(id);
+    const user = await this.findOne(id);
 
     await this.usersRepository.delete(id);
 
-    return existingUser;
+    return user;
   }
 
   public async validateCredentials(

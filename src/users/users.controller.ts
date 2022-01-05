@@ -33,7 +33,9 @@ export class UsersController {
   @UseGuards(JWTGuard)
   @Get()
   public async findAll(@Query() query: FindUserDto, @Req() { user }) {
-    return this.usersService.findAll({ ...query, id: user.id });
+    return this.usersService.findAll(
+      user.role === 'admin' ? query : { ...query, id: user.id },
+    );
   }
 
   @UseGuards(JWTGuard)
@@ -57,7 +59,7 @@ export class UsersController {
       throw new ForbiddenException();
     }
 
-    return this.usersService.update(+id, updateUserDto);
+    return this.usersService.update(+id, { ...updateUserDto, role: user.role });
   }
 
   @UseGuards(JWTGuard)

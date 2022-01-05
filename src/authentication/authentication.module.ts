@@ -10,6 +10,7 @@ import { RefreshToken } from './entities/refresh-token.entity';
 import { RefreshTokensRepository } from './refresh-tokens.repository';
 import { TokensService } from './tokens.service';
 import { JwtStrategy } from './jwt.strategy';
+import { ClientsModule } from 'src/clients/clients.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JwtStrategy } from './jwt.strategy';
       },
     }),
     UsersModule,
+    ClientsModule,
   ],
   controllers: [AuthenticationController],
   providers: [RefreshTokensRepository, JwtStrategy, TokensService],

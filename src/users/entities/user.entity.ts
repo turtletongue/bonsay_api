@@ -9,6 +9,7 @@ import {
 
 import { RefreshToken } from 'src/authentication/entities/refresh-token.entity';
 import { Role } from 'src/declarations';
+import { Client } from 'src/clients/entities/client.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -23,6 +24,11 @@ export class User {
 
   @Column({ type: 'enum', enum: ['admin', 'client'], default: 'client' })
   role: Role;
+
+  @OneToMany(() => Client, (client) => client.user)
+  clients: Client[];
+
+  client?: Client;
 
   @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
   refreshTokens: RefreshToken[];
