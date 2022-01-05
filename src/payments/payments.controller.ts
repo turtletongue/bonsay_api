@@ -76,6 +76,7 @@ export class PaymentsController {
       ...updatePaymentDto,
       clientId: user.client?.id,
       status: payment.status,
+      sum: payment.sum,
     });
   }
 
