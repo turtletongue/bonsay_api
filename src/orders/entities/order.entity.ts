@@ -40,7 +40,7 @@ export class Order {
   @Column()
   clientId: number;
 
-  @OneToMany(() => Payment, (payment) => payment.orderId, {
+  @OneToMany(() => Payment, (payment) => payment.order, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })

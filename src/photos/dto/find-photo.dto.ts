@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { IFieldQuery } from 'src/declarations';
 
-export class FindCategoryDto {
+export class FindPhotoDto {
   @ApiProperty()
   @IsOptional()
   $limit?: number;
@@ -17,11 +17,7 @@ export class FindCategoryDto {
 
   @ApiProperty()
   @IsOptional()
-  name?: string | IFieldQuery<string>;
-
-  @ApiProperty()
-  @IsOptional()
-  description?: string | IFieldQuery<string>;
+  productId?: number;
 
   @ApiProperty()
   @IsOptional()

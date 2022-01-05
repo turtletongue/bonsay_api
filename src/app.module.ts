@@ -12,6 +12,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { ProductsModule } from './products/products.module';
 import { PurchasesModule } from './purchases/purchases.module';
 import { UploadsModule } from './uploads/uploads.module';
+import { PhotosModule } from './photos/photos.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UploadsModule } from './uploads/uploads.module';
     ProductsModule,
     PurchasesModule,
     UploadsModule,
+    PhotosModule,
   ],
   controllers: [],
   providers: [],

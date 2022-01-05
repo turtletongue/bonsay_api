@@ -11,6 +11,7 @@ import {
 import { Category } from 'src/categories/entities/category.entity';
 import { Purchase } from 'src/purchases/entities/purchase.entity';
 import { Upload } from 'src/uploads/entities/upload.entity';
+import { Photo } from 'src/photos/entities/photo.entity';
 
 @Entity()
 export class Product {
@@ -50,6 +51,12 @@ export class Product {
     nullable: true,
   })
   upload: Upload;
+
+  @OneToMany(() => Photo, (photo) => photo.product, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  photos: Photo[];
 
   @Column({ nullable: true })
   uploadId: number;

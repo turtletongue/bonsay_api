@@ -1,5 +1,3 @@
-import { Category } from 'src/categories/entities/category.entity';
-import { Product } from 'src/products/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +6,10 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
+
+import { Category } from 'src/categories/entities/category.entity';
+import { Product } from 'src/products/entities/product.entity';
+import { Photo } from 'src/photos/entities/photo.entity';
 
 @Entity({ name: 'uploads' })
 export class Upload {
@@ -42,6 +44,12 @@ export class Upload {
     nullable: true,
   })
   categories: Category[];
+
+  @OneToMany(() => Photo, (photo) => photo.upload, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  photos: Photo[];
 
   @CreateDateColumn()
   createdAt: Date;

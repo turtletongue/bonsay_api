@@ -37,7 +37,7 @@ export class Address {
   @Column()
   clientId?: number;
 
-  @OneToMany(() => Order, (order) => order.addressId, {
+  @OneToMany(() => Order, (order) => order.address, {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
   })
