@@ -21,6 +21,10 @@ export class FindCategoryDto {
 
   @ApiProperty()
   @IsOptional()
+  description?: string | IFieldQuery<string>;
+
+  @ApiProperty()
+  @IsOptional()
   uploadId: number;
 
   @ApiProperty()

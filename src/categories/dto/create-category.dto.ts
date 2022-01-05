@@ -8,6 +8,10 @@ export class CreateCategoryDto {
 
   @ApiProperty()
   @IsNotEmpty()
+  description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
   @IsOptional()
   uploadId: number;
 }

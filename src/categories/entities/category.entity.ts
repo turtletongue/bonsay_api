@@ -19,6 +19,9 @@ export class Category {
   @Column()
   name: string;
 
+  @Column('text')
+  description: string;
+
   @OneToMany(() => Product, (product) => product.category, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
