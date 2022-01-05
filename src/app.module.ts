@@ -8,6 +8,7 @@ import { AddressesModule } from './addresses/addresses.module';
 import { ClientsModule } from './clients/clients.module';
 import { OrdersModule } from './orders/orders.module';
 import { PaymentsModule } from './payments/payments.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PaymentsModule } from './payments/payments.module';
     ClientsModule,
     OrdersModule,
     PaymentsModule,
+    CategoriesModule,
   ],
   controllers: [],
   providers: [],
