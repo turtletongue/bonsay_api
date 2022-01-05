@@ -7,31 +7,28 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Status } from 'src/declarations';
 import { Client } from 'src/clients/entities/client.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { Product } from 'src/products/entities/product.entity';
 
-@Entity({ name: 'payments' })
-export class Payment {
+@Entity()
+export class Purchase {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { precision: 30, scale: 2 })
-  sum: number;
+  @Column('int')
+  qty: number;
 
-  @Column({ type: 'enum', enum: ['wait', 'success', 'fail'], default: 'wait' })
-  status: Status;
-
-  @ManyToOne(() => Client, (client) => client.payments, {
+  @ManyToOne(() => Product, (product) => product.purchases, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  client: Client;
+  product: Product;
 
   @Column()
-  clientId: number;
+  productId: number;
 
-  @ManyToOne(() => Order, (order) => order.payments, {
+  @ManyToOne(() => Order, (order) => order.purchases, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
@@ -40,9 +37,18 @@ export class Payment {
   @Column()
   orderId: number;
 
+  @ManyToOne(() => Client, (client) => client.purchases, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  client: Client;
+
+  @Column()
+  clientId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
-  update: Date;
+  updatedAt: Date;
 }

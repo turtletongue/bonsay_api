@@ -25,12 +25,18 @@ export class User {
   @Column({ type: 'enum', enum: ['admin', 'client'], default: 'client' })
   role: Role;
 
-  @OneToMany(() => Client, (client) => client.user)
+  @OneToMany(() => Client, (client) => client.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   clients: Client[];
 
   client?: Client;
 
-  @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user)
+  @OneToMany(() => RefreshToken, (refreshToken) => refreshToken.user, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   refreshTokens: RefreshToken[];
 
   @CreateDateColumn()

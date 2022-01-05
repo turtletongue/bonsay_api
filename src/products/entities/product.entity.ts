@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { Category } from 'src/categories/entities/category.entity';
+import { Purchase } from 'src/purchases/entities/purchase.entity';
 
 @Entity()
 export class Product {
@@ -29,8 +31,17 @@ export class Product {
   @Column('date')
   birthdate: Date;
 
-  @ManyToOne(() => Category, (category) => category.products)
+  @ManyToOne(() => Category, (category) => category.products, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   category: Category;
+
+  @OneToMany(() => Purchase, (purchase) => purchase.product, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  purchases: Purchase[];
 
   @CreateDateColumn()
   createdAt: Date;

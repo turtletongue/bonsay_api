@@ -10,6 +10,7 @@ import {
   Req,
   Query,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { OrdersService } from './orders.service';
@@ -19,19 +20,43 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { JWTGuard } from 'src/authentication/jwt.guard';
 import { RolesGuard } from 'src/utils/guards/roles.guard';
 import { Roles } from 'src/utils/decorators/role.decorator';
+import { PurchasesService } from 'src/purchases/purchases.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(
+    private readonly ordersService: OrdersService,
+    private readonly purchasesService: PurchasesService,
+  ) {}
 
   @UseGuards(JWTGuard, RolesGuard)
   @Roles('client')
   @Post()
   public async create(@Body() createOrderDto: CreateOrderDto, @Req() { user }) {
-    return this.ordersService.create({
+    const order = await this.ordersService.create({
       ...createOrderDto,
       clientId: user.client?.id,
     });
+
+    if (createOrderDto.purchases) {
+      for (const purchase of createOrderDto.purchases) {
+        if (!purchase.qty || !isFinite(+purchase.qty)) {
+          throw new BadRequestException('Invalid purchase qty');
+        }
+
+        if (!purchase.productId) {
+          throw new BadRequestException('Invalid purchase productId');
+        }
+
+        await this.purchasesService.create({
+          ...purchase,
+          clientId: user.client?.id,
+          orderId: order.id,
+        });
+      }
+    }
+
+    return order;
   }
 
   @UseGuards(JWTGuard)

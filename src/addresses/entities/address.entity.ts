@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,13 +28,19 @@ export class Address {
   @Column()
   postcode: string;
 
-  @ManyToOne(() => Client, (client) => client.addresses)
+  @ManyToOne(() => Client, (client) => client.addresses, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   client: Client;
 
   @Column()
   clientId?: number;
 
-  @ManyToOne(() => Order, (order) => order.addressId)
+  @OneToMany(() => Order, (order) => order.addressId, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+  })
   orders: Order[];
 
   @CreateDateColumn()

@@ -13,4 +13,11 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsOptional()
   clientId?: number;
+
+  @ApiProperty()
+  @IsOptional()
+  purchases: {
+    qty: number;
+    productId: number;
+  }[];
 }
