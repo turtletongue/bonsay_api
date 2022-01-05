@@ -13,3 +13,5 @@ export const DAY_MS = HOUR_MS * 24;
 export const WEEK = DAY_MS * 7;
 
 export const jwtExpiresIn = '1h';
+
+export const MIN_PASSWORD_LENGTH = 7;
