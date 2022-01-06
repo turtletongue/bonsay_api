@@ -11,7 +11,8 @@ import { Product } from './entities/product.entity';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(Product) private productsRepository: Repository<Product>,
+    @InjectRepository(Product)
+    private readonly productsRepository: Repository<Product>,
   ) {}
 
   public async create(createProductDto: CreateProductDto) {
@@ -31,6 +32,24 @@ export class ProductsService {
       total,
       data,
     };
+  }
+
+  public async findBestsellers(query: FindProductDto) {
+    const findOptions = mapQueryToFindOptions(query);
+
+    return this.productsRepository
+      .createQueryBuilder()
+      .addSelect(
+        `(
+          SELECT COALESCE(SUM(qty), 0)
+          FROM purchases
+          WHERE "purchases"."productId" = "Product"."id")`,
+        'sales',
+      )
+      .orderBy('sales', 'DESC')
+      .groupBy('id')
+      .take(findOptions.take)
+      .getMany();
   }
 
   public async findOne(id: number) {
