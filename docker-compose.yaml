@@ -17,7 +17,7 @@ services:
       - .:/app
       - /app/node_modules
   db:
-    image: postgres:13
+    image: postgres:13-alpine
     container_name: bonsay_db
     restart: unless-stopped
     env_file:
