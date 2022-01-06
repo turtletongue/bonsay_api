@@ -32,6 +32,7 @@ export class Category {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
     nullable: true,
+    eager: true,
   })
   upload: Upload;
 

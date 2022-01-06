@@ -49,12 +49,14 @@ export class Product {
     onDelete: 'SET NULL',
     onUpdate: 'CASCADE',
     nullable: true,
+    eager: true,
   })
   upload: Upload;
 
   @OneToMany(() => Photo, (photo) => photo.product, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
+    eager: true,
   })
   photos: Photo[];
 
