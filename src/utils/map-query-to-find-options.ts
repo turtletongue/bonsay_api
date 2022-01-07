@@ -8,6 +8,7 @@ import {
   MoreThan,
   MoreThanOrEqual,
   Not,
+  Between,
 } from 'typeorm';
 
 import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_SKIP } from './variables';
@@ -17,6 +18,7 @@ import { IQuery } from 'src/declarations';
 export const mapQueryToFindOptions = ({
   $limit,
   $skip,
+  $order,
   ...where
 }: IQuery): FindManyOptions => {
   const whereEntries = Object.entries(where);
@@ -25,12 +27,18 @@ export const mapQueryToFindOptions = ({
     whereEntries
       .filter(([, value]) => {
         try {
-          if (value.$in) {
-            JSON.parse(value.$in);
+          const parsedValue = JSON.parse(value);
+
+          if (parsedValue.$in) {
+            return Array.isArray(parsedValue.$in);
           }
 
-          if (value.$nin) {
-            JSON.parse(value.$nin);
+          if (parsedValue.$nin) {
+            return Array.isArray(parsedValue.$nin);
+          }
+
+          if (parsedValue.$btw) {
+            return Array.isArray(parsedValue.$btw);
           }
 
           return true;
@@ -39,57 +47,60 @@ export const mapQueryToFindOptions = ({
         }
       })
       .map(([key, value]) => {
-        if (typeof value !== 'object') {
-          return [key, value];
+        const parsedValue = JSON.parse(value);
+
+        if (typeof parsedValue !== 'object') {
+          return [key, parsedValue];
         }
 
-        if ('$eq' in value) {
-          return [key, Equal(value.$eq)];
+        if ('$eq' in parsedValue) {
+          return [key, Equal(parsedValue.$eq)];
         }
 
-        if ('$ne' in value) {
-          return [key, Not(Equal(value.$ne))];
+        if ('$ne' in parsedValue) {
+          return [key, Not(Equal(parsedValue.$ne))];
         }
 
-        if ('$lt' in value) {
-          return [key, LessThan(value.$lt)];
+        if ('$lt' in parsedValue) {
+          return [key, LessThan(parsedValue.$lt)];
         }
 
-        if ('$gt' in value) {
-          return [key, MoreThan(value.$gt)];
+        if ('$gt' in parsedValue) {
+          return [key, MoreThan(parsedValue.$gt)];
         }
 
-        if ('$lte' in value) {
-          return [key, LessThanOrEqual(value.$lte)];
+        if ('$lte' in parsedValue) {
+          return [key, LessThanOrEqual(parsedValue.$lte)];
         }
 
-        if ('$gte' in value) {
-          return [key, MoreThanOrEqual(value.$gte)];
+        if ('$gte' in parsedValue) {
+          return [key, MoreThanOrEqual(parsedValue.$gte)];
         }
 
-        if ('$in' in value) {
-          const $in = JSON.parse(value.$in);
-
-          return [key, In(Array.isArray($in) ? $in : [$in])];
+        if ('$in' in parsedValue) {
+          return [key, In(parsedValue.$in)];
         }
 
-        if ('$nin' in value) {
-          const $nin = JSON.parse(value.$nin);
-
-          return [key, Not(In(Array.isArray($nin) ? $nin : [$nin]))];
+        if ('$nin' in parsedValue) {
+          return [key, Not(In(parsedValue.$nin))];
         }
 
-        if ('$iLike' in value) {
-          return [key, ILike(value.$iLike)];
+        if ('$iLike' in parsedValue) {
+          return [key, ILike(parsedValue.$iLike)];
         }
 
-        return [key, value];
+        if ('$btw' in parsedValue) {
+          return [key, Between(...(parsedValue.$btw as [unknown, unknown]))];
+        }
+
+        return [key, parsedValue];
       }),
   );
 
   return {
     take: +$limit || DEFAULT_PAGINATION_LIMIT,
     skip: +$skip || DEFAULT_PAGINATION_SKIP,
+    order: typeof $order === 'string' ? JSON.parse($order) : $order,
     where: whereEntries.length === 0 ? undefined : mappedWhere,
   };
 };

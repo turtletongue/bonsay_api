@@ -8,6 +8,7 @@ export interface IFieldQuery<T> {
   $iLike?: T;
   $nin?: T[];
   $in?: T[];
+  $btw: [T, T];
 }
 
 export interface IQuery {

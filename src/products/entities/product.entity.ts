@@ -39,6 +39,9 @@ export class Product {
   })
   category: Category;
 
+  @Column()
+  categoryId: number;
+
   @OneToMany(() => Purchase, (purchase) => purchase.product, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
