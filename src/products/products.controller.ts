@@ -34,11 +34,6 @@ export class ProductsController {
     return this.productsService.findAll(query);
   }
 
-  @Get('/bestsellers')
-  public async findBestsellers(@Query() query: FindProductDto) {
-    return await this.productsService.findBestsellers(query);
-  }
-
   @Get(':id')
   public async findOne(@Param('id') id: string) {
     return this.productsService.findOne(+id);

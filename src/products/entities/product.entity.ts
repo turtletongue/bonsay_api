@@ -13,7 +13,7 @@ import { Purchase } from 'src/purchases/entities/purchase.entity';
 import { Upload } from 'src/uploads/entities/upload.entity';
 import { Photo } from 'src/photos/entities/photo.entity';
 
-@Entity({ name: 'products' })
+@Entity()
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
