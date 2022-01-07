@@ -16,6 +16,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    networks:
+      - bonsay
   db:
     image: postgres:13-alpine
     container_name: bonsay_db
@@ -28,6 +30,11 @@ services:
       POSTGRES_DB: 'bonsay'
     volumes:
       - data:/var/lib/postgresql/bonsay_data
+    networks:
+      - bonsay
 volumes:
   data:
     name: bonsay_data
+networks:
+  bonsay:
+    external: true
