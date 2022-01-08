@@ -27,7 +27,8 @@ export const mapQueryToFindOptions = ({
     whereEntries
       .filter(([, value]) => {
         try {
-          const parsedValue = JSON.parse(value);
+          const parsedValue =
+            typeof value === 'string' ? JSON.parse(value) : value;
 
           if (parsedValue.$in) {
             return Array.isArray(parsedValue.$in);
@@ -47,7 +48,8 @@ export const mapQueryToFindOptions = ({
         }
       })
       .map(([key, value]) => {
-        const parsedValue = JSON.parse(value);
+        const parsedValue =
+          typeof value === 'string' ? JSON.parse(value) : value;
 
         if (typeof parsedValue !== 'object') {
           return [key, parsedValue];

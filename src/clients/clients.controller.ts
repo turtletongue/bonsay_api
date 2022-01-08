@@ -87,6 +87,6 @@ export class ClientsController {
       throw new ForbiddenException();
     }
 
-    return this.clientsService.remove(+id);
+    return this.usersService.remove(client.userId);
   }
 }

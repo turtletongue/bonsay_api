@@ -29,7 +29,9 @@ export class AuthenticationController {
     const user = (
       await this.usersService.findAll({
         $limit: 1,
-        email,
+        email: {
+          $eq: email,
+        },
       })
     ).data[0];
 
