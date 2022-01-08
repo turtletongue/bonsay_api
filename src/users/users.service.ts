@@ -72,9 +72,14 @@ export class UsersService {
       throw new UnprocessableEntityException('User is not found');
     }
 
+    const hashedPassword = updateUserDto.password
+      ? await hash(updateUserDto.password, await genSalt())
+      : null;
+
     const updatedUser = await this.usersRepository.save({
       id,
       ...updateUserDto,
+      ...(hashedPassword ? { password: hashedPassword } : {}),
     });
 
     delete updatedUser.password;
