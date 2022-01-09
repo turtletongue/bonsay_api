@@ -34,6 +34,10 @@ export class FindPaymentDto {
 
   @ApiProperty()
   @IsOptional()
+  tokenId?: string;
+
+  @ApiProperty()
+  @IsOptional()
   createdAt?: Date | IFieldQuery<Date>;
 
   @ApiProperty()

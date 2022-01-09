@@ -4,11 +4,6 @@ import { IsNotEmpty, IsOptional, IsNumber, IsIn } from 'class-validator';
 import { Status } from 'src/declarations';
 
 export class CreatePaymentDto {
-  @ApiProperty({ enum: ['wait', 'success', 'fail'], nullable: true })
-  @IsIn(['wait', 'success', 'fail'])
-  @IsOptional()
-  status?: Status;
-
   @ApiProperty()
   @IsNumber({ allowNaN: false, allowInfinity: false })
   sum: number;
@@ -16,6 +11,10 @@ export class CreatePaymentDto {
   @ApiProperty()
   @IsNotEmpty()
   orderId: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  tokenId: string;
 
   @ApiProperty()
   @IsOptional()

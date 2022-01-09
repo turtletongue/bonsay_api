@@ -10,7 +10,10 @@ import {
   Req,
   Query,
   ForbiddenException,
+  BadRequestException,
 } from '@nestjs/common';
+import { InjectStripe } from 'nestjs-stripe';
+import Stripe from 'stripe';
 
 import { PaymentsService } from './payments.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
@@ -19,10 +22,14 @@ import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { JWTGuard } from 'src/authentication/jwt.guard';
 import { RolesGuard } from 'src/utils/guards/roles.guard';
 import { Roles } from 'src/utils/decorators/role.decorator';
+import { KOPECKS_IN_RUBLE } from 'src/utils/variables';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(private readonly paymentsService: PaymentsService) {}
+  constructor(
+    private readonly paymentsService: PaymentsService,
+    @InjectStripe() private readonly stripeClient: Stripe,
+  ) {}
 
   @UseGuards(JWTGuard, RolesGuard)
   @Roles('client')
@@ -31,10 +38,19 @@ export class PaymentsController {
     @Body() createPaymentDto: CreatePaymentDto,
     @Req() { user },
   ) {
+    try {
+      await this.stripeClient.charges.create({
+        source: createPaymentDto.tokenId,
+        amount: createPaymentDto.sum * KOPECKS_IN_RUBLE,
+        currency: 'RUB',
+      });
+    } catch (error) {
+      throw new BadRequestException('Something wrong with your payment.');
+    }
+
     return this.paymentsService.create({
       ...createPaymentDto,
       clientId: user.client?.id,
-      status: 'wait',
     });
   }
 
@@ -75,7 +91,6 @@ export class PaymentsController {
     return this.paymentsService.update(+id, {
       ...updatePaymentDto,
       clientId: user.client?.id,
-      status: payment.status,
       sum: payment.sum,
     });
   }

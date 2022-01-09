@@ -19,9 +19,6 @@ export class Payment {
   @Column('decimal', { precision: 30, scale: 2 })
   sum: number;
 
-  @Column({ type: 'enum', enum: ['wait', 'success', 'fail'], default: 'wait' })
-  status: Status;
-
   @ManyToOne(() => Client, (client) => client.payments, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',

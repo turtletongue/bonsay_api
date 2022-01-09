@@ -34,6 +34,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "multer": "^1.4.4",
+    "nestjs-stripe": "^1.0.0",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -41,6 +42,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "stripe": "^8.195.0",
     "swagger-ui-express": "^4.3.0",
     "typeorm": "^0.2.41"
   },
