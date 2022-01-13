@@ -41,5 +41,5 @@ export class Payment {
   createdAt: Date;
 
   @UpdateDateColumn()
-  update: Date;
+  updatedAt: Date;
 }
