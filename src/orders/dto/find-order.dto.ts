@@ -33,5 +33,5 @@ export class FindOrderDto {
 
   @ApiProperty()
   @IsOptional()
-  updateAt?: Date | IFieldQuery<Date>;
+  updatedAt?: Date | IFieldQuery<Date>;
 }

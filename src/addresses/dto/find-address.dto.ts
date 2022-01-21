@@ -41,5 +41,5 @@ export class FindAddressDto {
 
   @ApiProperty()
   @IsOptional()
-  updateAt?: Date | IFieldQuery<Date>;
+  updatedAt?: Date | IFieldQuery<Date>;
 }

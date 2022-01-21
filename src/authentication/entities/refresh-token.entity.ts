@@ -29,5 +29,5 @@ export class RefreshToken {
   createdAt: Date;
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updatedAt: Date;
 }
