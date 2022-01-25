@@ -8,6 +8,8 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 
+RUN yarn global add @nestjs/cli
+
 COPY . .
 
 RUN yarn build
