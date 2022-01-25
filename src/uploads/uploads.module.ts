@@ -11,7 +11,7 @@ import { Upload } from './entities/upload.entity';
   imports: [
     TypeOrmModule.forFeature([Upload]),
     MulterModule.register({
-      dest: join(__dirname, '..', '..', 'public', 'uploads'),
+      dest: join(__dirname, '..', '..', 'public', 'files'),
     }),
   ],
   controllers: [UploadsController],

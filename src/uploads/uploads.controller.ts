@@ -36,7 +36,7 @@ export class UploadsController {
     return this.uploadsService.create({
       originalName: file.originalname,
       fileName: file.filename,
-      path: `uploads/${file.filename}`,
+      path: `files/${file.filename}`,
       size: String(file.size),
       mimetype: file.mimetype,
     });
@@ -59,7 +59,7 @@ export class UploadsController {
     const upload = await this.findOne(id);
 
     await unlinkAsync(
-      join(__dirname, '..', '..', 'public', 'uploads', upload.fileName),
+      join(__dirname, '..', '..', 'public', 'files', upload.fileName),
     );
 
     return this.uploadsService.remove(+id);
