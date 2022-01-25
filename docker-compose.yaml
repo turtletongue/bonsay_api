@@ -27,6 +27,8 @@ services:
       - .env
     depends_on:
       - db
+    volumes:
+      - ./public/files:/app/public/files
     networks:
       - bonsay
   db:
