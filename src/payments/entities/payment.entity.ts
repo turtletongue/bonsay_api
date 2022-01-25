@@ -37,7 +37,7 @@ export class Payment {
   @Column()
   orderId: number;
 
-  @Column()
+  @Column({ nullable: true })
   tokenId: string;
 
   @CreateDateColumn()
