@@ -20,6 +20,7 @@ import { FindUploadDto } from './dto/find-upload.dto';
 import { UploadsService } from './uploads.service';
 import { storage } from './storage.config';
 import { join } from 'path';
+import * as Express from 'express';
 
 const unlinkAsync = promisify(unlink);
 

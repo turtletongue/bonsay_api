@@ -33,6 +33,7 @@
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "express": "^4.17.2",
     "helmet": "^5.0.1",
     "multer": "^1.4.4",
     "nestjs-stripe": "^1.0.0",
