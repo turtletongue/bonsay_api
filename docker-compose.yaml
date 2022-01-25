@@ -10,6 +10,9 @@ services:
       - node
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/bonsay.istmen.space/fullchain.pem:/etc/letsencrypt/live/bonsay.istmen.space/fullchain.pem
+      - /etc/letsencrypt/live/bonsay.istmen.space/privkey.pem:/etc/letsencrypt/live/bonsay.istmen.space/privkey.pem
+
     ports:
       - 80:80
       - 443:443
