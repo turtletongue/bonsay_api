@@ -12,6 +12,8 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/letsencrypt/live/bonsay.istmen.space/fullchain.pem:/etc/letsencrypt/live/bonsay.istmen.space/fullchain.pem
       - /etc/letsencrypt/live/bonsay.istmen.space/privkey.pem:/etc/letsencrypt/live/bonsay.istmen.space/privkey.pem
+      - /etc/letsencrypt/live/admin.bonsay.istmen.space-0001/fullchain.pem:/etc/letsencrypt/live/admin.bonsay.istmen.space/fullchain.pem
+      - /etc/letsencrypt/live/admin.bonsay.istmen.space-0001/privkey.pem:/etc/letsencrypt/live/admin.bonsay.istmen.space/privkey.pem
 
     ports:
       - 80:80
