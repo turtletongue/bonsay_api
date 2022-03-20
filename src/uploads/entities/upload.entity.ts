@@ -26,6 +26,9 @@ export class Upload {
   path: string;
 
   @Column()
+  internalPath: string;
+
+  @Column()
   mimetype: string;
 
   @Column()

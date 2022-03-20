@@ -30,6 +30,10 @@ export class FindUploadDto {
 
   @ApiProperty()
   @IsOptional()
+  internalPath?: string;
+
+  @ApiProperty()
+  @IsOptional()
   mimetype?: string;
 
   @ApiProperty()

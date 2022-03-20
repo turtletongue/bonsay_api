@@ -17,6 +17,9 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 Now, you can execute this commands:
 
 ```
+# create folder for uploads
+mkdir public/files
+
 # create custom network to connect front-end and back-end (optional)
 docker network create bonsay
 

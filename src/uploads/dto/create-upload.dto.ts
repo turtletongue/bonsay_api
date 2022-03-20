@@ -20,6 +20,11 @@ export class CreateUploadDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsOptional()
+  internalPath: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsOptional()
   mimetype: string;
 
   @ApiProperty()

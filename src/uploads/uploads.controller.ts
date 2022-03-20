@@ -36,7 +36,8 @@ export class UploadsController {
     return this.uploadsService.create({
       originalName: file.originalname,
       fileName: file.filename,
-      path: `files/${file.filename}`,
+      path: `${process.env.API_PATH}api/files/${file.filename}`,
+      internalPath: `${process.env.API_INTERNAL_PATH}api/files/${file.filename}`,
       size: String(file.size),
       mimetype: file.mimetype,
     });
