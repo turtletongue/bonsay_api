@@ -7,8 +7,8 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { Role } from 'src/declarations';
-import { MIN_PASSWORD_LENGTH } from 'src/utils/variables';
+import { Role } from '@app/declarations';
+import { MIN_PASSWORD_LENGTH } from '@utils/variables';
 
 export class CreateUserDto {
   @ApiProperty()

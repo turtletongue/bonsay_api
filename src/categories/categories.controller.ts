@@ -10,13 +10,13 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { FindCategoryDto } from './dto/find-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
 
 @Controller('categories')
 export class CategoriesController {

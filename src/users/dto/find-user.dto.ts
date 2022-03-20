@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-import { IFieldQuery, Role } from 'src/declarations';
+import { IFieldQuery, Role } from '@app/declarations';
 
 export class FindUserDto {
   @ApiProperty()

@@ -12,15 +12,15 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { unlink } from 'fs';
 import { promisify } from 'util';
+import { join } from 'path';
+import 'multer';
 
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
+import { JWTGuard } from '@authentication/jwt.guard';
+import { Roles } from '@utils/decorators/role.decorator';
+import { RolesGuard } from '@utils/guards/roles.guard';
 import { FindUploadDto } from './dto/find-upload.dto';
 import { UploadsService } from './uploads.service';
 import { storage } from './storage.config';
-import { join } from 'path';
-import 'multer';
 
 const unlinkAsync = promisify(unlink);
 

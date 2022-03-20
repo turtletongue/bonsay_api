@@ -12,9 +12,9 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
+import { JWTGuard } from '@authentication/jwt.guard';
+import { Roles } from '@utils/decorators/role.decorator';
+import { RolesGuard } from '@utils/guards/roles.guard';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { FindAddressDto } from './dto/find-address.dto';

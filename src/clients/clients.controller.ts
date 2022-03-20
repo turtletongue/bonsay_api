@@ -12,10 +12,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { UsersService } from 'src/users/users.service';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
+import { JWTGuard } from '@authentication/jwt.guard';
+import { UsersService } from '@users/users.service';
+import { Roles } from '@utils/decorators/role.decorator';
+import { RolesGuard } from '@utils/guards/roles.guard';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { FindClientDto } from './dto/find-client.dto';

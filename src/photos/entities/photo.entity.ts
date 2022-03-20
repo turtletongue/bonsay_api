@@ -7,8 +7,8 @@ import {
   Column,
 } from 'typeorm';
 
-import { Product } from 'src/products/entities/product.entity';
-import { Upload } from 'src/uploads/entities/upload.entity';
+import { Product } from '@products/entities/product.entity';
+import { Upload } from '@uploads/entities/upload.entity';
 
 @Entity({ name: 'photos' })
 export class Photo {

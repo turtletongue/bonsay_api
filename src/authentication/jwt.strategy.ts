@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { jwtExpiresIn } from 'src/utils/variables';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from '../users/users.service';
-import { ClientsService } from 'src/clients/clients.service';
+import { jwtExpiresIn } from '@utils/variables';
+import { User } from '@users/entities/user.entity';
+import { UsersService } from '@users/users.service';
+import { ClientsService } from '@clients/clients.service';
 
 export interface AccessTokenPayload {
   sub: number;

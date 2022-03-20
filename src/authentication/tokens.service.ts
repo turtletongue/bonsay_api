@@ -2,11 +2,11 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { SignOptions, TokenExpiredError } from 'jsonwebtoken';
 
-import { RefreshTokensRepository } from './refresh-tokens.repository';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '@users/entities/user.entity';
+import { UsersService } from '@users/users.service';
+import { RefreshTokenPayload } from '@app/declarations';
 import { RefreshToken } from './entities/refresh-token.entity';
-import { RefreshTokenPayload } from 'src/declarations';
-import { UsersService } from 'src/users/users.service';
+import { RefreshTokensRepository } from './refresh-tokens.repository';
 
 @Injectable()
 export class TokensService {

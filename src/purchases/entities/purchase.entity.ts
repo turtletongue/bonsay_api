@@ -7,17 +7,14 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Client } from 'src/clients/entities/client.entity';
-import { Order } from 'src/orders/entities/order.entity';
-import { Product } from 'src/products/entities/product.entity';
+import { Client } from '@clients/entities/client.entity';
+import { Order } from '@orders/entities/order.entity';
+import { Product } from '@products/entities/product.entity';
 
 @Entity({ name: 'purchases' })
 export class Purchase {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column('int')
-  qty: number;
 
   @ManyToOne(() => Product, (product) => product.purchases, {
     onDelete: 'CASCADE',

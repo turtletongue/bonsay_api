@@ -3,8 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 
-import { UsersModule } from 'src/users/users.module';
-import { jwtExpiresIn } from 'src/utils/variables';
+import { UsersModule } from '@app/users/users.module';
+import { jwtExpiresIn } from '@app/utils/variables';
 import { AuthenticationController } from './authentication.controller';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { RefreshTokensRepository } from './refresh-tokens.repository';

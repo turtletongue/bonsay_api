@@ -13,14 +13,14 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
+import { PurchasesService } from '@purchases/purchases.service';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { FindOrderDto } from './dto/find-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { PurchasesService } from 'src/purchases/purchases.service';
 
 @Controller('orders')
 export class OrdersController {

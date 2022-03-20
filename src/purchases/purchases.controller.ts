@@ -13,13 +13,13 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
+import { OrdersService } from '@orders/orders.service';
 import { PurchasesService } from './purchases.service';
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { UpdatePurchaseDto } from './dto/update-purchase.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { OrdersService } from 'src/orders/orders.service';
 import { FindPurchaseDto } from './dto/find-purchase.dto';
 
 @Controller('purchases')

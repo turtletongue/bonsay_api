@@ -11,13 +11,14 @@ import {
   Req,
   ForbiddenException,
 } from '@nestjs/common';
+
+import { Roles } from '@utils/decorators/role.decorator';
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
 
 @Controller('users')
 export class UsersController {

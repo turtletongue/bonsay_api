@@ -10,13 +10,13 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
 
 @Controller('products')
 export class ProductsController {

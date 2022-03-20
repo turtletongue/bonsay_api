@@ -7,9 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Status } from 'src/declarations';
-import { Client } from 'src/clients/entities/client.entity';
-import { Order } from 'src/orders/entities/order.entity';
+import { Client } from '@clients/entities/client.entity';
+import { Order } from '@orders/entities/order.entity';
 
 @Entity({ name: 'payments' })
 export class Payment {

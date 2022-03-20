@@ -15,14 +15,14 @@ import {
 import { InjectStripe } from 'nestjs-stripe';
 import Stripe from 'stripe';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
+import { KOPECKS_IN_RUBLE } from '@utils/variables';
 import { PaymentsService } from './payments.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { FindPaymentDto } from './dto/find-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
-import { KOPECKS_IN_RUBLE } from 'src/utils/variables';
 
 @Controller('payments')
 export class PaymentsController {

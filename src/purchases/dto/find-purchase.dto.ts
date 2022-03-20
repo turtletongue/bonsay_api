@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-import { IFieldQuery } from 'src/declarations';
+import { IFieldQuery } from '@app/declarations';
 
 export class FindPurchaseDto {
   @ApiProperty()
@@ -15,10 +15,6 @@ export class FindPurchaseDto {
   @ApiProperty()
   @IsOptional()
   id?: number | IFieldQuery<number>;
-
-  @ApiProperty()
-  @IsOptional()
-  qty?: number | IFieldQuery<number>;
 
   @ApiProperty()
   @IsOptional()

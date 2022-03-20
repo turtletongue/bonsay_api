@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { compare, genSalt, hash } from 'bcrypt';
 
-import mapQueryToFindOptions from 'src/utils/map-query-to-find-options';
+import mapQueryToFindOptions from '@utils/map-query-to-find-options';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';

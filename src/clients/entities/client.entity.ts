@@ -8,11 +8,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { User } from 'src/users/entities/user.entity';
-import { Address } from 'src/addresses/entities/address.entity';
-import { Order } from 'src/orders/entities/order.entity';
-import { Payment } from 'src/payments/entities/payment.entity';
-import { Purchase } from 'src/purchases/entities/purchase.entity';
+import { User } from '@users/entities/user.entity';
+import { Address } from '@addresses/entities/address.entity';
+import { Order } from '@orders/entities/order.entity';
+import { Payment } from '@payments/entities/payment.entity';
+import { Purchase } from '@purchases/entities/purchase.entity';
 
 @Entity({ name: 'clients' })
 export class Client {

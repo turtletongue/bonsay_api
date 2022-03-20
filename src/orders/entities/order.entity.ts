@@ -8,10 +8,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Address } from 'src/addresses/entities/address.entity';
-import { Client } from 'src/clients/entities/client.entity';
-import { Payment } from 'src/payments/entities/payment.entity';
-import { Purchase } from 'src/purchases/entities/purchase.entity';
+import { Address } from '@addresses/entities/address.entity';
+import { Client } from '@clients/entities/client.entity';
+import { Payment } from '@payments/entities/payment.entity';
+import { Purchase } from '@purchases/entities/purchase.entity';
 
 @Entity({ name: 'orders' })
 export class Order {

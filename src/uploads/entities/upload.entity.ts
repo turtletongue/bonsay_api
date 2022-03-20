@@ -7,9 +7,9 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Category } from 'src/categories/entities/category.entity';
-import { Product } from 'src/products/entities/product.entity';
-import { Photo } from 'src/photos/entities/photo.entity';
+import { Category } from '@categories/entities/category.entity';
+import { Product } from '@products/entities/product.entity';
+import { Photo } from '@photos/entities/photo.entity';
 
 @Entity({ name: 'uploads' })
 export class Upload {

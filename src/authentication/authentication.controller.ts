@@ -1,8 +1,8 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
 
-import { UsersService } from 'src/users/users.service';
-import { WEEK } from 'src/utils/variables';
+import { UsersService } from '@users/users.service';
+import { User } from '@users/entities/user.entity';
+import { WEEK } from '@utils/variables';
 import { AuthenticationDto } from './dto/authentication.dto';
 import { TokensService } from './tokens.service';
 

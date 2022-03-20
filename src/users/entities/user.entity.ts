@@ -7,9 +7,9 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { RefreshToken } from 'src/authentication/entities/refresh-token.entity';
-import { Role } from 'src/declarations';
-import { Client } from 'src/clients/entities/client.entity';
+import { RefreshToken } from '@authentication/entities/refresh-token.entity';
+import { Role } from '@app/declarations';
+import { Client } from '@clients/entities/client.entity';
 
 @Entity({ name: 'users' })
 export class User {

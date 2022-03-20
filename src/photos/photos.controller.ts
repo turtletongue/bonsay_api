@@ -10,13 +10,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+import { JWTGuard } from '@authentication/jwt.guard';
+import { RolesGuard } from '@utils/guards/roles.guard';
+import { Roles } from '@utils/decorators/role.decorator';
 import { PhotosService } from './photos.service';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { FindPhotoDto } from './dto/find-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
-import { JWTGuard } from 'src/authentication/jwt.guard';
-import { RolesGuard } from 'src/utils/guards/roles.guard';
-import { Roles } from 'src/utils/decorators/role.decorator';
 
 @Controller('photos')
 export class PhotosController {

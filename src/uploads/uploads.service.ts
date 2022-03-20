@@ -2,7 +2,7 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import mapQueryToFindOptions from 'src/utils/map-query-to-find-options';
+import mapQueryToFindOptions from '@utils/map-query-to-find-options';
 import { CreateUploadDto } from './dto/create-upload.dto';
 import { FindUploadDto } from './dto/find-upload.dto';
 import { Upload } from './entities/upload.entity';

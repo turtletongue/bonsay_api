@@ -13,7 +13,7 @@ import {
 
 import { DEFAULT_PAGINATION_LIMIT, DEFAULT_PAGINATION_SKIP } from './variables';
 
-import { IQuery } from 'src/declarations';
+import { IQuery } from '@app/declarations';
 
 export const mapQueryToFindOptions = ({
   $limit,

@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { UsersModule } from '@users/users.module';
+import { AuthenticationModule } from '@authentication/authentication.module';
+import { AddressesModule } from '@addresses/addresses.module';
+import { ClientsModule } from '@clients/clients.module';
+import { OrdersModule } from '@orders/orders.module';
+import { PaymentsModule } from '@payments/payments.module';
+import { CategoriesModule } from '@categories/categories.module';
+import { ProductsModule } from '@products/products.module';
+import { PurchasesModule } from '@purchases/purchases.module';
+import { UploadsModule } from '@uploads/uploads.module';
+import { PhotosModule } from '@photos/photos.module';
 import { ormConfig } from './ormconfig';
-import { UsersModule } from './users/users.module';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { AddressesModule } from './addresses/addresses.module';
-import { ClientsModule } from './clients/clients.module';
-import { OrdersModule } from './orders/orders.module';
-import { PaymentsModule } from './payments/payments.module';
-import { CategoriesModule } from './categories/categories.module';
-import { ProductsModule } from './products/products.module';
-import { PurchasesModule } from './purchases/purchases.module';
-import { UploadsModule } from './uploads/uploads.module';
-import { PhotosModule } from './photos/photos.module';
 
 @Module({
   imports: [

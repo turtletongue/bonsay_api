@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
-import { IFieldQuery } from 'src/declarations';
+import { IFieldQuery } from '@app/declarations';
 
 export class FindCategoryDto {
   @ApiProperty()
