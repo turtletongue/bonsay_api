@@ -13,10 +13,19 @@ import { Client } from '@clients/entities/client.entity';
 import { Payment } from '@payments/entities/payment.entity';
 import { Purchase } from '@purchases/entities/purchase.entity';
 
+import { OrderStatus } from '@app/declarations';
+
 @Entity({ name: 'orders' })
 export class Order {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({
+    type: 'enum',
+    enum: ['processing', 'delivery', 'completed', 'cancelled'],
+    default: 'processing',
+  })
+  status: OrderStatus;
 
   @Column()
   phone: string;

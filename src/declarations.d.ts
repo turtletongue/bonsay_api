@@ -32,3 +32,5 @@ export type Role = 'admin' | 'client';
 export type Owner = 'user' | 'client';
 
 export type Status = 'wait' | 'success' | 'fail';
+
+export type OrderStatus = 'processing' | 'delivery' | 'completed' | 'cancelled';

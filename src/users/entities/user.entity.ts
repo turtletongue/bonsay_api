@@ -8,8 +8,9 @@ import {
 } from 'typeorm';
 
 import { RefreshToken } from '@authentication/entities/refresh-token.entity';
-import { Role } from '@app/declarations';
 import { Client } from '@clients/entities/client.entity';
+
+import { Role } from '@app/declarations';
 
 @Entity({ name: 'users' })
 export class User {
