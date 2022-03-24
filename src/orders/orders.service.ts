@@ -1,6 +1,6 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 
 import mapQueryToFindOptions from '@utils/map-query-to-find-options';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -21,7 +21,10 @@ export class OrdersService {
   public async findAll(query: FindOrderDto) {
     const findOptions = mapQueryToFindOptions(query);
 
-    const [data, total] = await this.ordersRepository.findAndCount(findOptions);
+    const [data, total] = await this.ordersRepository.findAndCount({
+      ...findOptions,
+      relations: ['purchases', 'purchases.product'],
+    } as FindManyOptions<Order>);
 
     return {
       $limit: findOptions.take,
@@ -32,7 +35,9 @@ export class OrdersService {
   }
 
   public async findOne(id: number) {
-    const order = await this.ordersRepository.findOne(id);
+    const order = await this.ordersRepository.findOne(id, {
+      relations: ['purchases', 'purchases.product'],
+    } as FindOneOptions<Order>);
 
     if (!order) {
       throw new UnprocessableEntityException('Order is not found');
