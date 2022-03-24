@@ -40,10 +40,6 @@ export class OrdersController {
 
     if (createOrderDto.purchases) {
       for (const purchase of createOrderDto.purchases) {
-        if (!purchase.qty || !isFinite(+purchase.qty)) {
-          throw new BadRequestException('Invalid purchase qty');
-        }
-
         if (!purchase.productId) {
           throw new BadRequestException('Invalid purchase productId');
         }

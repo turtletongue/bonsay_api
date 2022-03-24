@@ -17,7 +17,6 @@ export class CreateOrderDto {
   @ApiProperty()
   @IsOptional()
   purchases: {
-    qty: number;
     productId: number;
   }[];
 }
