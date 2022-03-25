@@ -76,7 +76,7 @@ export class OrdersController {
   }
 
   @UseGuards(JWTGuard, RolesGuard)
-  @Roles('client')
+  @Roles('client', 'admin')
   @Patch(':id')
   public async update(
     @Param('id') id: string,

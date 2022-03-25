@@ -28,6 +28,12 @@ export class Order {
   status: OrderStatus;
 
   @Column()
+  firstname: string;
+
+  @Column()
+  lastname: string;
+
+  @Column()
   phone: string;
 
   @ManyToOne(() => Address, (address) => address.orders, {
