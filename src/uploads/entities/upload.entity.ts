@@ -25,7 +25,7 @@ export class Upload {
   @Column()
   path: string;
 
-  @Column({ default: '' })
+  @Column()
   internalPath: string;
 
   @Column()
