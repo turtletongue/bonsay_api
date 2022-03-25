@@ -1,7 +1,8 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { Connection, Repository } from 'typeorm';
 
+import { Product } from '@products/entities/product.entity';
 import mapQueryToFindOptions from '@utils/map-query-to-find-options';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { FindCategoryDto } from './dto/find-category.dto';
@@ -13,6 +14,7 @@ export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
+    @InjectConnection() private connection: Connection,
   ) {}
 
   public async create(createCategoryDto: CreateCategoryDto) {
@@ -60,10 +62,32 @@ export class CategoriesService {
   }
 
   public async remove(id: number) {
-    const category = await this.findOne(id);
+    const category = await this.categoriesRepository.findOne(id, {
+      relations: ['products'],
+    });
 
-    await this.categoriesRepository.delete(id);
+    if (!category) {
+      throw new UnprocessableEntityException('Category is not found');
+    }
 
-    return category;
+    return new Promise((resolve) => {
+      this.connection.transaction(async (entityManager) => {
+        await Promise.all(
+          category.products.map(async ({ id }) => {
+            return await entityManager.save(Product, {
+              id,
+              isDeleted: true,
+            });
+          }),
+        );
+
+        resolve(
+          await entityManager.save(Category, {
+            id,
+            isDeleted: true,
+          }),
+        );
+      });
+    });
   }
 }

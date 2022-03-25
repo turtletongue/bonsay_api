@@ -27,6 +27,9 @@ export class Product {
   @Column('text')
   description: string;
 
+  @Column('boolean', { default: true })
+  isAvailable: boolean;
+
   @Column('int')
   height: number;
 
@@ -65,6 +68,9 @@ export class Product {
 
   @Column({ nullable: true })
   uploadId: number;
+
+  @Column('boolean', { default: false })
+  isDeleted: boolean;
 
   @CreateDateColumn()
   createdAt: Date;

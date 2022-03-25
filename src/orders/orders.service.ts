@@ -1,8 +1,14 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import {
+  Connection,
+  FindManyOptions,
+  FindOneOptions,
+  Repository,
+} from 'typeorm';
 
 import mapQueryToFindOptions from '@utils/map-query-to-find-options';
+import { Product } from '@products/entities/product.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { FindOrderDto } from './dto/find-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -12,10 +18,24 @@ import { Order } from './entities/order.entity';
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private ordersRepository: Repository<Order>,
+    @InjectConnection() private connection: Connection,
   ) {}
 
-  public async create(createOrderDto: CreateOrderDto) {
-    return this.ordersRepository.save(createOrderDto);
+  public async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    return new Promise((resolve) => {
+      this.connection.transaction(async (entityManager) => {
+        await Promise.all(
+          createOrderDto.purchases.map(async ({ productId }) => {
+            return await entityManager.save(Product, {
+              id: productId,
+              isAvailable: false,
+            });
+          }),
+        );
+
+        resolve(await entityManager.save(Order, createOrderDto));
+      });
+    });
   }
 
   public async findAll(query: FindOrderDto) {
@@ -47,18 +67,54 @@ export class OrdersService {
   }
 
   public async update(id: number, updateOrderDto: UpdateOrderDto) {
-    const order = await this.ordersRepository.findOne(id);
+    const order = await this.ordersRepository.findOne(id, {
+      relations: ['purchases'],
+    });
 
     if (!order) {
       throw new UnprocessableEntityException('Order is not found');
     }
 
-    const updatedOrder = await this.ordersRepository.save({
-      id,
-      ...updateOrderDto,
-    });
+    return new Promise((resolve) => {
+      this.connection.transaction(async (entityManager) => {
+        if (
+          updateOrderDto.status &&
+          order.status === 'cancelled' &&
+          updateOrderDto.status !== 'cancelled'
+        ) {
+          await Promise.all(
+            order.purchases.map(async ({ productId }) => {
+              return await entityManager.save(Product, {
+                id: productId,
+                isAvailable: false,
+              });
+            }),
+          );
+        }
 
-    return updatedOrder;
+        if (
+          updateOrderDto.status &&
+          order.status !== 'cancelled' &&
+          updateOrderDto.status === 'cancelled'
+        ) {
+          await Promise.all(
+            order.purchases.map(async ({ productId }) => {
+              return await entityManager.save(Product, {
+                id: productId,
+                isAvailable: true,
+              });
+            }),
+          );
+        }
+
+        resolve(
+          await entityManager.save(Order, {
+            id,
+            ...updateOrderDto,
+          }),
+        );
+      });
+    });
   }
 
   public async remove(id: number) {

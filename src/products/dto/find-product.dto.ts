@@ -26,6 +26,10 @@ export class FindProductDto {
 
   @ApiProperty()
   @IsOptional()
+  isAvailable?: boolean | IFieldQuery<boolean>;
+
+  @ApiProperty()
+  @IsOptional()
   description?: string | IFieldQuery<string>;
 
   @ApiProperty()

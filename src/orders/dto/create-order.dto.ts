@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
+import { OrderStatus } from '@app/declarations';
+
 export class CreateOrderDto {
   @ApiProperty()
   @IsNotEmpty()
@@ -19,4 +21,8 @@ export class CreateOrderDto {
   purchases: {
     productId: number;
   }[];
+
+  @ApiProperty()
+  @IsOptional()
+  status: OrderStatus;
 }

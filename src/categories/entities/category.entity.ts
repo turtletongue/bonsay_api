@@ -39,6 +39,9 @@ export class Category {
   @Column({ nullable: true })
   uploadId: number;
 
+  @Column('boolean', { default: false })
+  isDeleted: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 
