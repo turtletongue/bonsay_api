@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-import { IFieldQuery } from '@app/declarations';
+import { IFieldQuery, OrderStatus } from '@app/declarations';
 
 export class FindOrderDto {
   @ApiProperty()
@@ -27,6 +27,10 @@ export class FindOrderDto {
   @ApiProperty()
   @IsOptional()
   clientId?: number;
+
+  @ApiProperty()
+  @IsOptional()
+  status?: OrderStatus | IFieldQuery<string>;
 
   @ApiProperty()
   @IsOptional()
