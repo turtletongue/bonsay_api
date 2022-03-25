@@ -13,6 +13,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { unlink } from 'fs';
 import { promisify } from 'util';
 import { join } from 'path';
+import { Express } from 'express';
 import 'multer';
 
 import { JWTGuard } from '@authentication/jwt.guard';
