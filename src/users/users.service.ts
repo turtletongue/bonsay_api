@@ -72,6 +72,16 @@ export class UsersService {
       throw new UnprocessableEntityException('User is not found');
     }
 
+    if (updateUserDto.email) {
+      const existingUser = await this.usersRepository.findOne({
+        email: updateUserDto.email,
+      });
+
+      if (existingUser) {
+        throw new BadRequestException('This email is already taken');
+      }
+    }
+
     const hashedPassword = updateUserDto.password
       ? await hash(updateUserDto.password, await genSalt())
       : null;
