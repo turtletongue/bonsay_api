@@ -25,6 +25,10 @@ export class FindCategoryDto {
 
   @ApiProperty()
   @IsOptional()
+  disablePagination?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
   uploadId?: number;
 
   @ApiProperty()

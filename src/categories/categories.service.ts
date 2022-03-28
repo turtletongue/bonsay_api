@@ -22,7 +22,14 @@ export class CategoriesService {
   }
 
   public async findAll(query: FindCategoryDto) {
+    const isPaginationDisabled = query.disablePagination;
+    delete query.disablePagination;
+
     const findOptions = mapQueryToFindOptions(query);
+
+    if (isPaginationDisabled) {
+      delete findOptions.take;
+    }
 
     const [data, total] = await this.categoriesRepository.findAndCount(
       findOptions,
