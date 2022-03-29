@@ -77,19 +77,8 @@ export class OrdersService {
 
     return new Promise((resolve) => {
       this.connection.transaction(async (entityManager) => {
-        if (
-          updateOrderDto.status &&
-          order.status === 'cancelled' &&
-          updateOrderDto.status !== 'cancelled'
-        ) {
-          await Promise.all(
-            order.purchases.map(async ({ productId }) => {
-              return await entityManager.save(Product, {
-                id: productId,
-                isAvailable: false,
-              });
-            }),
-          );
+        if (order.status === 'cancelled') {
+          delete updateOrderDto.status;
         }
 
         if (
