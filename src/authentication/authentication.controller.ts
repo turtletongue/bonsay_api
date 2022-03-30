@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 
 import { UsersService } from '@users/users.service';
 import { User } from '@users/entities/user.entity';
-import { WEEK } from '@utils/variables';
+import { WEEK_MS } from '@utils/variables';
 import { AuthenticationDto } from './dto/authentication.dto';
 import { TokensService } from './tokens.service';
 
@@ -46,7 +46,7 @@ export class AuthenticationController {
     const accessToken = await this.tokensService.generateAccessToken(user);
     const refreshToken = await this.tokensService.generateRefreshToken(
       user,
-      WEEK,
+      WEEK_MS,
     );
 
     return this.buildResponsePayload(user, accessToken, refreshToken);

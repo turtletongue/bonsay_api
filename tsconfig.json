@@ -26,7 +26,8 @@
       "@purchases*": ["src/purchases/*"],
       "@uploads*": ["src/uploads/*"],
       "@users*": ["src/users/*"],
-      "@utils*": ["src/utils/*"]
+      "@utils*": ["src/utils/*"],
+      "@charts*": ["src/charts/*"]
     }
   }
 }

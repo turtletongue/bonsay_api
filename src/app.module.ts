@@ -12,6 +12,10 @@ import { ProductsModule } from '@products/products.module';
 import { PurchasesModule } from '@purchases/purchases.module';
 import { UploadsModule } from '@uploads/uploads.module';
 import { PhotosModule } from '@photos/photos.module';
+import { RevenueChartModule } from '@charts/revenue-chart/revenue-chart.module';
+import { CategoriesPieModule } from '@charts/categories-pie/categories-pie.module';
+import { OrdersStatusesChartModule } from '@charts/orders-statuses-chart/orders-statuses-chart.module';
+import { OrdersCountChartModule } from '@charts/orders-count-chart/orders-count-chart.module';
 import { ormConfig } from './ormconfig';
 
 @Module({
@@ -28,6 +32,10 @@ import { ormConfig } from './ormconfig';
     PurchasesModule,
     UploadsModule,
     PhotosModule,
+    RevenueChartModule,
+    CategoriesPieModule,
+    OrdersStatusesChartModule,
+    OrdersCountChartModule,
   ],
   controllers: [],
   providers: [],
