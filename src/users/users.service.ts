@@ -77,7 +77,7 @@ export class UsersService {
         email: updateUserDto.email,
       });
 
-      if (existingUser) {
+      if (existingUser && user.id !== existingUser.id) {
         throw new BadRequestException('This email is already taken');
       }
     }
