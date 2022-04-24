@@ -8,3 +8,5 @@ node_modules
 
 public/uploads/*
 public/files/*
+
+docker_postgres_password
