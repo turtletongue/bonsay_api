@@ -47,6 +47,7 @@ export class RevenueChartService {
         ...acc,
         [dateString]: {
           sum: (acc[dateString]?.sum || 0) + +purchase.product.price,
+          date: purchase.createdAt,
         },
       };
     }, {});
@@ -65,15 +66,21 @@ export class RevenueChartService {
       if (!dates[dateString]) {
         dates[dateString] = {
           sum: 0,
+          date,
         };
       }
     }
 
     return {
-      dates: Object.entries(dates).map((date: [string, { sum: number }]) => ({
-        date: date[0],
-        sum: date[1].sum,
-      })),
+      dates: Object.entries(dates)
+        .sort(
+          (a: [string, { date: Date }], b: [string, { date: Date }]) =>
+            a[1].date.getTime() - b[1].date.getTime(),
+        )
+        .map((entries: [string, { sum: number }]) => ({
+          date: entries[0],
+          sum: entries[1].sum,
+        })),
     };
   }
 }

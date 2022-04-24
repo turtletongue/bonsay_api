@@ -44,6 +44,7 @@ export class OrdersCountChartService {
         ...acc,
         [dateString]: {
           count: (acc[dateString]?.count || 0) + 1,
+          date: order.createdAt,
         },
       };
     }, {});
@@ -62,15 +63,21 @@ export class OrdersCountChartService {
       if (!dates[dateString]) {
         dates[dateString] = {
           count: 0,
+          date,
         };
       }
     }
 
     return {
-      dates: Object.entries(dates).map((date: [string, { count: number }]) => ({
-        date: date[0],
-        count: date[1].count,
-      })),
+      dates: Object.entries(dates)
+        .sort(
+          (a: [string, { date: Date }], b: [string, { date: Date }]) =>
+            a[1].date.getTime() - b[1].date.getTime(),
+        )
+        .map((date: [string, { count: number }]) => ({
+          date: date[0],
+          count: date[1].count,
+        })),
     };
   }
 }
