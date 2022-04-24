@@ -4,7 +4,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Connection } from 'typeorm';
 
 import { Order } from '@orders/entities/order.entity';
-import { MONTH_MS } from '@utils/variables';
+import { MONTH_MS, ORDER_STATUSES } from '@utils/variables';
 import { FindOrdersStatusesDto } from './dto/find-orders-statuses.dto';
 
 @Injectable()
@@ -36,6 +36,14 @@ export class OrdersStatusesChartService {
     const statuses = orders.reduce((acc, { status }) => {
       return { ...acc, [status]: (acc[status] || 0) + 1 };
     }, {});
+
+    for (const orderStatus of ORDER_STATUSES) {
+      if (!statuses[orderStatus]) {
+        statuses[orderStatus] = {
+          count: 0,
+        };
+      }
+    }
 
     return {
       statuses: Object.entries(statuses).map((status: [string, number]) => ({
