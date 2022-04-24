@@ -7,11 +7,16 @@ First of all, install [docker-compose](https://docs.docker.com/compose/install/)
 Second, you should create .env file with following content (example):
 
 ```
-POSTGRES_PASSWORD=your_postgres_password
 JWT_SECRET=your_jwt_secret
 API_PATH=http://localhost:3020/
 API_INTERNAL_PATH=http://bonsay_api:3020/
 STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+
+Third, create `docker_postgres_password` file and fill it with your postgres database password.
+
+```
+echo -n "your_postgres_password" >> docker_postgres_password
 ```
 
 Now, you can execute this commands:
