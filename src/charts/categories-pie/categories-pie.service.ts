@@ -4,6 +4,7 @@ import { BadRequestException } from '@nestjs/common';
 import { Connection } from 'typeorm';
 
 import { Purchase } from '@purchases/entities/purchase.entity';
+import { Category } from '@categories/entities/category.entity';
 import { MONTH_MS } from '@utils/variables';
 import { FindCategoriesPieDto } from './dto/find-categories-pie-data.dto';
 
@@ -40,6 +41,19 @@ export class CategoriesPieService {
     const categories = purchases.reduce((acc, { product: { category } }) => {
       return { ...acc, [category.name]: (acc[category.name] || 0) + 1 };
     }, {});
+
+    const allCategories = await this.connection
+      .getRepository(Category)
+      .createQueryBuilder('category')
+      .getMany();
+
+    for (const category of allCategories) {
+      if (!categories[category.name]) {
+        categories[category.name] = {
+          count: 0,
+        };
+      }
+    }
 
     return {
       categories: Object.entries(categories).map(

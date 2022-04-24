@@ -19,3 +19,10 @@ export const jwtExpiresIn = '1h';
 export const MIN_PASSWORD_LENGTH = 7;
 
 export const KOPECKS_IN_RUBLE = 100;
+
+export const ORDER_STATUSES = [
+  'processing',
+  'delivery',
+  'completed',
+  'cancelled',
+] as const;
