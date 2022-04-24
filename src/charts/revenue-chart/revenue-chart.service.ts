@@ -51,6 +51,24 @@ export class RevenueChartService {
       };
     }, {});
 
+    for (
+      let date = startDate;
+      date <= endDate;
+      date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+    ) {
+      const dateString = date.toLocaleDateString('ru', {
+        day: '2-digit',
+        month: 'long',
+        timeZone: 'Europe/Moscow',
+      });
+
+      if (!dates[dateString]) {
+        dates[dateString] = {
+          sum: 0,
+        };
+      }
+    }
+
     return {
       dates: Object.entries(dates).map((date: [string, { sum: number }]) => ({
         date: date[0],
